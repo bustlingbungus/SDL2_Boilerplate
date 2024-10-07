@@ -30,7 +30,7 @@ This code has been compiled and tested on a Windows 10 machine. While SDL is por
 - Frees itself when loading new audio, and in it's destructor, to handle memory leaks.
 - ```play``` will begin playing the audio from the next open channel by default. Only call this function once to begin playing audio.
     - Parameter 1 allows you to specify which channel to play the audio from. Channel 0 will not be used by default (specify 0 to use channel 0). This is to allow one channel to be reserved for things like music
-        - If no channel is provided, the next open channel (excluding 0) will be used. By default, 8 different channels will be used. This can be changed by modifying the ```g_channel``` member in ```LAudio.cpp```
+        - If no channel is provided, the next open channel (excluding 0) will be used. By default, 8 different channels will be used. This can be changed by changing the definition of ```NUM_AVAILABLE_CHANNELS``` in ```LAudio.hpp```
     - Parameter 2 allows you to specify the number of times the audio will loop. 0 by default (audio will play once). Set to -1 to have the audio loop infinitely.
 
 ### main.cpp
