@@ -60,3 +60,8 @@ Then, run ```cd bin``` to go to the output directory, and run ```./project.exe``
 On VSCode, pressing ```ctrl+shift+b``` to run the included default build tasks should also work.
 
 When developing your own projects, be sure to go to ```CMakeLists.txt```, and on line 7, replace 'project' with the name of your project. After doing this, wou will run your project with ```./[yourProjectName].exe```. If using build tasks to automate the build process, be sure to update line 37 in ```tasks.json``` to reflect this name change.
+
+### Build Fix:
+On some installations, static linking to SDL_ttf will cause undefined reference errors. If you are having this issue, simply remove ```-static``` from the SDL_ttf link in line 26 of ```CmMakeLists.txt```. Line 26 should look like this:
+```target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_ttf::SDL2_ttf)```
+Hopefully this fix works!
