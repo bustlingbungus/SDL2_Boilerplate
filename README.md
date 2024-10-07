@@ -12,7 +12,7 @@ This code has been compiled and tested on a Windows 10 machine. While SDL is por
 
 - A basic window class that will hold global SDL variables, and will serve as the window that the programs actually gets rendered to and takes input from.
 - Includes a gFont member, which will load a default font from file. This font will be used to render text when no font is provided.
-    - Currently, this default font is [Press Start 2p](https://fonts.google.com/specimen/Press+Start+2P)
+    - Currently, this default font is 18 pt [Press Start 2p](https://fonts.google.com/specimen/Press+Start+2P)
 - When created, an LWindow will initialise SDL, and closes SDL in it's deconstructor. Therefore, only one LWindow can be created per project, and no SDL methods can be used when said window goes out of scope.
 
 ### LTexture.hpp/cpp
