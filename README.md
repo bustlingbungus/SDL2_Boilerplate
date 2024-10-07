@@ -1,4 +1,4 @@
-## SDL2 Boilerplate
+# SDL2 Boilerplate
 
 This boilerplate will help serve as a starting point for developing projects with the SDL2 graphics libraries.
 
