@@ -1,5 +1,5 @@
 # ignore all build files
-build/
+build/*
 
 # ignore .vscode files (excluding tasks.json)
 .vscode/c_cpp_properties.json
