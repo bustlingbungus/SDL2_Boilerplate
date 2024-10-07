@@ -63,5 +63,7 @@ When developing your own projects, be sure to go to ```CMakeLists.txt```, and on
 
 ### Build Fix:
 On some installations, static linking to SDL_ttf will cause undefined reference errors. If you are having this issue, simply remove ```-static``` from the SDL_ttf link in line 26 of ```CmMakeLists.txt```. Line 26 should look like this:
-```target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_ttf::SDL2_ttf)```
+```
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_ttf::SDL2_ttf)
+```
 Hopefully this fix works!
