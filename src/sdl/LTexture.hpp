@@ -21,7 +21,6 @@ enum TextOrientation
 // Texture wrapper class
 class LTexture
 {
-  friend class LTexture;
 
 public:
   // Initializes variables
