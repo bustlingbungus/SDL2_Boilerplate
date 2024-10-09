@@ -18,14 +18,10 @@ enum TextOrientation
   Left_aligned,
 };
 
-// forward declare texture manipulator class
-class TextureManipulator;
-
 // Texture wrapper class
 class LTexture
 {
-  // declare TextureManipulator as a friend class
-  friend class TextureManipulator;
+  friend class LTexture;
 
 public:
   // Initializes variables
@@ -64,9 +60,16 @@ public:
   // Renders texture at given point
   void render(int x, int y, SDL_Rect *dest = NULL, SDL_Rect *clip = NULL, double angle = 0.0,
               SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
-  void render(SDL_Rect *dest = NULL, SDL_Rect *clip = NULL, double angle = 0.0,
+  // Renders a texture into a provided rect
+  void render(SDL_Rect *dest, SDL_Rect *clip = NULL, double angle = 0.0,
               SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+  // renders onto a provided texture. Note that the target texture MUST have SDL_TEXTUREACCESS_TARGET access for this to work!
+  void render_toTexture(std::shared_ptr<LTexture> target, int x, int y, SDL_Rect *dest = NULL, SDL_Rect *clip = NULL, double angle = 0.0,
+              SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+  // renders onto a provided texture. Note that the target texture MUST have SDL_TEXTUREACCESS_TARGET access for this to work!
+  void render_toTexture(std::shared_ptr<LTexture> target, SDL_Rect *dest = NULL, SDL_Rect *clip = NULL, double angle = 0.0,
+              SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
   // Gets image dimensions
   int getWidth();

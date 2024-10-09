@@ -194,6 +194,38 @@ void LTexture::render(SDL_Rect *dest, SDL_Rect *clip, double angle,
                    center, flip);
 }
 
+// renders onto a provided texture
+  void LTexture::render_toTexture(std::shared_ptr<LTexture> target, int x, int y, SDL_Rect *dest, SDL_Rect *clip, double angle,
+              SDL_Point *center, SDL_RendererFlip flip)
+  {
+    // set the render target to the target's mtexture
+    if (SDL_SetRenderTarget(gHolder->gRenderer, target->mTexture) < 0) {
+      printf("Failed to target target texture! SDL_Error: %s\n", SDL_GetError());
+      return;
+    }
+
+    // render this onto the texture
+    render(x, y, dest, clip, angle, center, flip);
+
+    // reset the render target
+    SDL_SetRenderTarget(gHolder->gRenderer, NULL);
+  }
+  void LTexture::render_toTexture(std::shared_ptr<LTexture> target, SDL_Rect *dest, SDL_Rect *clip, double angle,
+              SDL_Point *center, SDL_RendererFlip flip)
+  {
+    // set the render target to the target's mtexture
+    if (SDL_SetRenderTarget(gHolder->gRenderer, target->mTexture) < 0) {
+      printf("Failed to target target texture! SDL_Error: %s\n", SDL_GetError());
+      return;
+    }
+
+    // render this onto the texture
+    render(dest, clip, angle, center, flip);
+
+    // reset the render target
+    SDL_SetRenderTarget(gHolder->gRenderer, NULL);
+  }
+
 int LTexture::getWidth() { return mWidth; }
 
 int LTexture::getHeight() { return mHeight; }

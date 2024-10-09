@@ -22,6 +22,7 @@ This code has been compiled and tested on a Windows 10 machine. While SDL is por
 - Frees itself when creating a new texture, and in it's deconstructor, ensuring no memory leaks. 
 - The 'render' functions can be used to either render the texture into a specified rect on the window, or to render the texture at an (x,y) coordinate, rendered to fill the texture's dimensions.
     - The 'render' member functions include more parameters for more rendering options.
+- A texture may be rendered onto another texture using ```render_toTexture```, but not that this will only work if the target taxture was created with ```SDL_TEXTUREACCESS_TARGET```. The only included method for this is ```solidColour```, but target access textures can be created with custom modifications to this code.
 
 ### LAudio.hpp/cpp
 
