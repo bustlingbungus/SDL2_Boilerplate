@@ -63,13 +63,13 @@ public:
   void render(SDL_Rect *dest, SDL_Rect *clip = NULL, double angle = 0.0,
               SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-  // renders onto a provided texture. Note that the target texture MUST have SDL_TEXTUREACCESS_TARGET access for this to work!
-  void render_toTexture(std::shared_ptr<LTexture> target, int x, int y, SDL_Rect *dest = NULL, SDL_Rect *clip = NULL, double angle = 0.0,
+  // renders to another texture
+  void render_toTexture(LTexture *target, int x, int y, SDL_Rect *dest = NULL, SDL_Rect *clip = NULL, double angle = 0.0,
               SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
-  // renders onto a provided texture. Note that the target texture MUST have SDL_TEXTUREACCESS_TARGET access for this to work!
-  void render_toTexture(std::shared_ptr<LTexture> target, SDL_Rect *dest = NULL, SDL_Rect *clip = NULL, double angle = 0.0,
+  // renders to another texture
+  void render_toTexture(LTexture *target, SDL_Rect *dest, SDL_Rect *clip = NULL, double angle = 0.0,
               SDL_Point *center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
-
+              
   // Gets image dimensions
   int getWidth();
   int getHeight();
