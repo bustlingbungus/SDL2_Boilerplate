@@ -68,7 +68,7 @@ On some systems, there may be an issue when static linking to the SDL_ttf librar
 
 You can also try dynamically linking to SDL_ttf instead, by removing the `-static` property from line 26 of `CMakeLists.txt`. Line 26 should look like this for dynamic linking:
 ```
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_ttf::SDL2_ttf-static)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_ttf::SDL2_ttf)
 ```
 
 Note that if you were having the `undefined reference to '_setjmp'` error, This fix might allow you to build the project, but will likely create a new error where calling the `loadFromRenderedText` function more than once will crash your application. If this is happening to you, again, you need to make sure your C++ compiler and the C standard library are both installed properly. 
