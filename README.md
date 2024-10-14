@@ -19,6 +19,7 @@ This code has been compiled and tested on a Windows 10 machine. While SDL is por
 
 - A class that holds a SDL_Texture and a shared pointer to an LWindow. Member functions can be used to render the texture onto the window. Stores the dimensions of the texture.
 - Member functions allow creation of textures by loading an image from a provided filename, creating a texture from a string of text, and creating a texture of solid colour.
+    - On some systems there is a crash related to the `loadFromRenderedText` function, see the `Build Fix` section of this file.
 - Frees itself when creating a new texture, and in it's deconstructor, ensuring no memory leaks. 
 - The 'render' functions can be used to either render the texture into a specified rect on the window, or to render the texture at an (x,y) coordinate, rendered to fill the texture's dimensions.
     - The 'render' member functions include more parameters for more rendering options.
@@ -63,8 +64,13 @@ On VSCode, pressing ```ctrl+shift+b``` to run the included default build tasks s
 When developing your own projects, be sure to go to ```CMakeLists.txt```, and on line 7, replace 'project' with the name of your project. After doing this, wou will run your project with ```./[yourProjectName].exe```. If using build tasks to automate the build process, be sure to update line 37 in ```tasks.json``` to reflect this name change.
 
 ### Build Fix:
-On some installations, static linking to SDL_ttf will cause undefined reference errors. If you are having this issue, simply remove ```-static``` from the SDL_ttf link in line 26 of ```CmMakeLists.txt```. Line 26 should look like this:
+On some systems, there may be an issue when static linking to the SDL_ttf library. If you are getting a CMake error message about an `undefined reference to '_setjmp'`, there is likely an issue with your installation of the C standard library. Make sure you have a valid C++ compiler for your system , and that it is properly referenced in VSCode and CMake (This process is a huge pain, I'm sorry if this happens to you).
+
+You can also try dynamically linking to SDL_ttf instead, by removing the `-static` property from line 26 of `CMakeLists.txt`. Line 26 should look like this for dynamic linking:
 ```
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_ttf::SDL2_ttf)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2_ttf::SDL2_ttf-static)
 ```
+
+Note that if you were having the `undefined reference to '_setjmp'` error, This fix might allow you to build the project, but will likely create a new error where calling the `loadFromRenderedText` function more than once will crash your application. If this is happening to you, again, you need to make sure your C++ compiler and the C standard library are both installed properly. 
+
 Hopefully this fix works!
