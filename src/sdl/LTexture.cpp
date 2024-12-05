@@ -63,22 +63,45 @@ bool LTexture::loadFromRenderedText(std::string textureText,
 }
 #endif
 
+/* 
+ * Creates a texture of a uniform colour
+ *
+ * \note created texture will have pixel format `SDL_PIXELFORMAT_RGBA8888`
+ * and texture access `SDL_TEXTUREACCESS_TARGET`
+ * 
+ * \param colour the RGBA colour
+ * \param width, height the dimensions of the created texture
+ * 
+ * \return `true` for successful texture creation.
+ * \return `false` for failure.
+ */
 bool LTexture::solidColour(SDL_Color colour, int width, int height)
 {
+  // free pre-existing texture
   free();
+  // create empty texture
   mTexture = SDL_CreateTexture(gHolder->gRenderer, 
               SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 
               width, height);
+  // error handling
   if (mTexture == NULL) {
     printf("Failed to create solid colour! SDL_Error: %s", SDL_GetError());
   } else {
+    // prepare texture and renderer
+    SDL_SetTextureBlendMode(mTexture, SDL_BLENDMODE_BLEND);
     SDL_SetRenderTarget(gHolder->gRenderer, mTexture);
+    SDL_SetRenderDrawBlendMode(gHolder->gRenderer, SDL_BLENDMODE_NONE);
     SDL_SetRenderDrawColor(gHolder->gRenderer, colour.r, colour.g, colour.b, colour.a);
-    SDL_RenderClear(gHolder->gRenderer);
+    // fill texture with colour
+    SDL_RenderFillRect(gHolder->gRenderer, NULL);
+    // reset renderer for rendering 
     SDL_SetRenderTarget(gHolder->gRenderer, NULL);
+    SDL_SetRenderDrawBlendMode(gHolder->gRenderer, SDL_BLENDMODE_BLEND);
+    // set width and height members
     mWidth = width;
     mHeight = height;
   }
+  // return success
   return mTexture != NULL;
 }
 
