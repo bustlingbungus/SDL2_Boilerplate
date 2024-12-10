@@ -28,7 +28,7 @@ bool LTexture::loadFromRenderedText(std::string textureText,
   // Get rid of preexisting texture
   free();
 
-  if (font == NULL) font = gHolder->gFont;
+  if (font == NULL) font = gHolder->gFont->get();
 
   // Render text surface
   SDL_Surface *textSurface =

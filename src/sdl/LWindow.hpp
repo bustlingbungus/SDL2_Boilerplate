@@ -7,6 +7,9 @@
 #include <sstream>
 #include <stdio.h>
 #include <string>
+#include <memory>
+
+#include "LFont.hpp"
 
 /* SDL Init object */
 class LWindow
@@ -16,7 +19,8 @@ public:
   SDL_Renderer *gRenderer = NULL;
 
   /* Globally used font */
-  TTF_Font *gFont = NULL;
+  // TTF_Font *gFont = NULL;
+  std::shared_ptr<LFont> gFont;
 
   /* Handles window events */
   void handleEvent(SDL_Event &e);

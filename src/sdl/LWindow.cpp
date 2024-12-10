@@ -83,8 +83,8 @@ LWindow::LWindow(int width, int height, std::string name)
   }
 
   // load default assets
-  gFont = TTF_OpenFont("../../assets/DefaultFont.ttf", 18);
-  if (gFont == NULL)
+  gFont = std::make_shared<LFont>(18, "../../assets/DefaultFont.ttf");
+  if (gFont.get() == NULL)
   {
     printf("Failed to load ../../assets/DefaultFont.ttf!\n");
     exit(0);
@@ -201,6 +201,8 @@ bool LWindow::isMinimized()
 
 LWindow::~LWindow()
 {
+  gFont->free();
+
   // Destroy window
   SDL_DestroyRenderer(gRenderer);
   SDL_DestroyWindow(gWindow);
