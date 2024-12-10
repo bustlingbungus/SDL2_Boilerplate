@@ -5,9 +5,10 @@
  *
  * \param size the point size
  * \param filename the file to load the font from
+ * \param colour RGBS text colour
  */
-LFont::LFont(int size, std::string filename)
-: size(size), filename(filename)
+LFont::LFont(int size, std::string filename, SDL_Color colour)
+: size(size), filename(filename), colour(colour)
 {
     // initalise font
     if (!load(filename, size)) {
@@ -27,6 +28,7 @@ void LFont::free(bool clearFilename)
     if (font!=NULL) TTF_CloseFont(font);
     font = NULL;
     size = -1;
+    colour = {255,255,255,255};
     if (clearFilename) filename = "";
 }
 
@@ -91,7 +93,12 @@ bool LFont::setPtSize(int ptsize)
     return font != NULL;
 }
 
+/* Assign font colour */
+void LFont::setColour(SDL_Color col) { colour = col; }
+
 /* A raw pointer to the TTF_Font */
 TTF_Font* LFont::get() const { return font; }
 /* The point size */
 int LFont::getPtSize() const { return size; }
+/* Text colour */
+SDL_Color LFont::getColour() const { return colour; }
