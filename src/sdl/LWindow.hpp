@@ -19,7 +19,6 @@ public:
   SDL_Renderer *gRenderer = NULL;
 
   /* Globally used font */
-  // TTF_Font *gFont = NULL;
   std::shared_ptr<LFont> gFont;
 
   /* Handles window events */
@@ -43,11 +42,19 @@ public:
   /* toggles fullscreen */
   bool toggleFullscreen();
 
+  /* changes window dimensions */
+  void setDimensions(int width, int height, bool maintainResolution = false);
+  /* Sets the position of the window's origin on the monitor. leave as defaults for the window to be centred */
+  void setPosition(int x = SDL_WINDOWPOS_CENTERED, int y = SDL_WINDOWPOS_CENTERED);
+
   /* Initialises variables */
   LWindow(int width = 1280, int height = 720, std::string name = "Window");
 
   /* deallocates memory */
   ~LWindow();
+
+  /* Changes window name */
+  void setName(std::string newName);
 
 private:
   /* The window being rendered to */
@@ -60,6 +67,7 @@ private:
   /* Scaling factor */
   float scaleX = 1.0f;
   float scaleY = 1.0f;
+  bool rescale = false;
 
   /* Window focus */
   bool wMouseFocus;
